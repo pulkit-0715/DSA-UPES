@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 struct Node {
     int data;
@@ -25,11 +26,16 @@ void append(struct Node** head, int data) {
     temp->next = newNode;
 }
 
-int countCriticalPoints(struct Node* head) {
-    if (head == NULL || head->next == NULL || head->next->next == NULL)
-        return 0;
+void criticalPointsInfo(struct Node* head) {
+    if (head == NULL || head->next == NULL || head->next->next == NULL) {
+        printf("0\n");
+        return;
+    }
 
     int count = 0;
+    int minVal = INT_MAX;
+    int maxVal = INT_MIN;
+
     struct Node* prev = head;
     struct Node* curr = head->next;
     struct Node* next = curr->next;
@@ -37,21 +43,25 @@ int countCriticalPoints(struct Node* head) {
     while (next != NULL) {
         if ((curr->data > prev->data && curr->data > next->data) ||
             (curr->data < prev->data && curr->data < next->data)) {
+
             count++;
+
+            if (curr->data < minVal)
+                minVal = curr->data;
+
+            if (curr->data > maxVal)
+                maxVal = curr->data;
         }
+
         prev = curr;
         curr = next;
         next = next->next;
     }
 
-    return count;
-}
-
-void printList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
-    }
+    if (count == 0)
+        printf("0\n");
+    else
+        printf("Count: %d\nMin: %d\nMax: %d\n", count, minVal, maxVal);
 }
 
 int main() {
@@ -64,7 +74,7 @@ int main() {
         append(&head, x);
     }
 
-    printf("%d", countCriticalPoints(head));
+    criticalPointsInfo(head);
 
     return 0;
 }
