@@ -4,51 +4,74 @@
 int stack[MAX];
 int top = -1;
 
-void push(int value) {
+void push() {
+    int val;
+    scanf("%d",&val);
+
     if (top == MAX - 1) {
         printf("Stack Overflow\n");
-    } else {
+    } 
+    else {
         top++;
-        stack[top] = value;
-        printf("%d pushed into stack\n", value);
+        stack[top] = val;
     }
 }
 
 void pop() {
     if (top == -1) {
         printf("Stack Underflow\n");
-    } else {
-        printf("%d popped from stack\n", stack[top]);
+    } 
+    else {
         top--;
     }
 }
 
 void peek() {
-    if (top == -1) {
+    if (top == -1)
         printf("Stack is empty\n");
-    } else {
+    else
         printf("Top element is %d\n", stack[top]);
-    }
 }
 
 void isEmpty() {
-    if (top == -1) {
+    if (top == -1)
         printf("Stack is empty\n");
-    } else {
+    else
         printf("Stack is not empty\n");
+}
+
+void print_stack() {
+    if(top == -1) {
+        printf("Stack is empty\n");
+        return;
     }
+
+    printf("Stack elements:\n");
+    for(int i = top; i >= 0; i--) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
 }
 
 int main() {
-    push(10);
-    push(20);
-    push(30);
 
-    peek();
-    pop();
-    peek();
+   int n;
+   printf("How many elements to add?\n");
+   scanf("%d",&n);
 
-    isEmpty();
+   for(int i=0;i<n;i++)
+       push();
 
-    return 0;
+   print_stack();
+
+   int p;
+   printf("How many elements to pop?\n");
+   scanf("%d",&p);
+
+   for(int i=0;i<p;i++)
+       pop();
+
+   print_stack();
+
+   return 0;
 }
