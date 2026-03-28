@@ -6,14 +6,14 @@ int top = -1;
 
 void push() {
     int val;
+    printf("Enter element: ");
     scanf("%d",&val);
 
     if (top == MAX - 1) {
         printf("Stack Overflow\n");
     } 
     else {
-        top++;
-        stack[top] = val;
+        stack[++top] = val;
     }
 }
 
@@ -22,22 +22,8 @@ void pop() {
         printf("Stack Underflow\n");
     } 
     else {
-        top--;
+        printf("%d popped from stack\n", stack[top--]);
     }
-}
-
-void peek() {
-    if (top == -1)
-        printf("Stack is empty\n");
-    else
-        printf("Top element is %d\n", stack[top]);
-}
-
-void isEmpty() {
-    if (top == -1)
-        printf("Stack is empty\n");
-    else
-        printf("Stack is not empty\n");
 }
 
 void print_stack() {
