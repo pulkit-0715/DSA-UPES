@@ -46,14 +46,14 @@ struct Node* buildTree(int arr[], int n) {
     return root;
 }
 
-int height(struct Node* root) {
+int countLeaves(struct Node* root) {
     if (root == NULL)
         return 0;
 
-    int left = height(root->left);
-    int right = height(root->right);
+    if (root->left == NULL && root->right == NULL)
+        return 1;
 
-    return (left > right ? left : right) + 1;
+    return countLeaves(root->left) + countLeaves(root->right);
 }
 
 int main() {
@@ -66,7 +66,7 @@ int main() {
 
     struct Node* root = buildTree(arr, n);
 
-    printf("%d\n", height(root));
+    printf("%d\n", countLeaves(root));
 
     return 0;
 }
